@@ -63,3 +63,20 @@ SELECT A.Name, S.Duration
 FROM (ARTIST AS A JOIN FEATURES AS F ON A.ArtistID = F.ArtistID) JOIN SONG AS S ON ( F.SongID = S.SongID)
 WHERE S.Duration = (Select MAX(SONG.Duration)
                     From SONG);
+
+/*Select all song titles that in are Spanish*/
+SELECT s.Title
+FROM SONG s 
+WHERE s.Language = 'Spanish';
+
+/*Select all songID and song titles in Alternative Metal genre */
+Select s.Title, s.SongID
+FROM Song S
+WHERE s.genre = 'Alternative Metal';
+
+/*Select all English songs with ratings above 3*/
+SELECT s.Title
+FROM SONG s
+JOIN RATINGS r
+ON s.SongID = r.SongID
+WHERE s.Language = 'English' AND s.Score > 3;

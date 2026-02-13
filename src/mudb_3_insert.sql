@@ -817,6 +817,47 @@ VALUES
 ((SELECT ArtistID FROM ARTIST WHERE Name = 'Paloma Faith'), (SELECT SongID FROM SONG WHERE Title = 'Freedom')),
 ((SELECT ArtistID FROM ARTIST WHERE Name = 'Paloma Faith'), (SELECT SongID FROM SONG WHERE Title = 'Streets of Glory'));
 
+/*Jenny's Inserts*/
+INSERT INTO MUDB_USER (Username, Password, Role, Email) VALUES ('jburkmier','jburkmierPassword321','User','jburkmier@github.com');
+
+INSERT INTO ARTIST (DateOfBirth, Name) VALUES ('1972-11-11','ABBA');
+
+INSERT INTO ALBUM (ReleaseDate, Title, ArtistID) SELECT '2007-12-12','ABBA: The Album Deluxe',ArtistID FROM ARTIST WHERE Name='ABBA';
+
+INSERT INTO SONG (Duration, Title, Username) VALUES (265,'Eagle','jburkmier');
+INSERT INTO SONG (Duration, Title, Username) VALUES (265,'Take a Chance on Me','jburkmier');
+INSERT INTO SONG (Duration, Title, Username) VALUES (243,'Thank You for the Music','jburkmier');
+INSERT INTO SONG (Duration, Title, Username) VALUES (283,'Al andar','jburkmier');
+INSERT INTO SONG (Duration, Title, Username) VALUES (267,'I Wonder(Departure)','jburkmier');
+INSERT INTO SONG (Duration, Title, Username) VALUES (229,'Gracias por la Musica','jburkmier');
+
+INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
+SELECT s.SongID, a.AlbumID, 1 FROM SONG s JOIN ALBUM a ON a.Title='ABBA: The Ablum Deluxe' WHERE s.Title='Eagle';
+
+INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
+SELECT s.SongID, a.AlbumID, 1 FROM SONG s JOIN ALBUM a ON a.Title='ABBA: The Ablum Deluxe' WHERE s.Title='Take a Chance on Me';
+
+INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
+SELECT s.SongID, a.AlbumID, 1 FROM SONG s JOIN ALBUM a ON a.Title='ABBA: The Ablum Deluxe' WHERE s.Title='Thank You for the Music';
+
+INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
+SELECT s.SongID, a.AlbumID, 1 FROM SONG s JOIN ALBUM a ON a.Title='ABBA: The Ablum Deluxe' WHERE s.Title='Al andar';
+
+INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
+SELECT s.SongID, a.AlbumID, 1 FROM SONG s JOIN ALBUM a ON a.Title='ABBA: The Ablum Deluxe' WHERE s.Title='I Wonder(Departure)';
+
+INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
+SELECT s.SongID, a.AlbumID, 1 FROM SONG s JOIN ALBUM a ON a.Title='ABBA: The Ablum Deluxe' WHERE s.Title='Gracias por la Musica';
+
+INSERT INTO FEATURES (ArtistID, SongID) SELECT ar.ArtistID, s.SongID FROM ARTIST ar JOIN SONG s ON ar.Name='ABBA';
+
+INSERT INTO SONG_GENRE (SongID, Genre) SELECT SongID,'Dance Rock' FROM SONG;
+
+INSERT INTO RATING (Score, Username, SongID) SELECT 5,'jburkmier',SongID FROM SONG WHERE Title='Take a Chance on Me';
+
+
 /*Brandon's moved here to assign all songs English: IF you have a song that is not in English, place it below this when you merege*/
 INSERT INTO SONG_LANGUAGE (SongID, Language) SELECT SongID,'English' FROM SONG;
 
+INSERT INTO SONG_LANGUAGE(SongID, Language) SELECT SongID, 'Spanish' WHERE Title ='Gracias por la Musica';
+INSERT INTO SONG_LANGUAGE(SongID, Language) SELECT SongID, 'Spanish' WHERE Title ='Al andar';
