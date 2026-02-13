@@ -55,7 +55,7 @@ AND a.Title = 'Take Me Back To Eden';
 INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
 SELECT s.SongID, a.AlbumID, 5
 FROM SONG s, ALBUM a
-WHERE s.Title = 'Vote'
+WHERE s.Title = 'Vore'
 AND a.Title = 'Take Me Back To Eden';
 
 INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
@@ -67,7 +67,7 @@ AND a.Title = 'Take Me Back To Eden';
 INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
 SELECT s.SongID, a.AlbumID, 7
 FROM SONG s, ALBUM a
-WHERE s.Title = 'Are You Really Okay'
+WHERE s.Title = 'Are You Really Okay?'
 AND a.Title = 'Take Me Back To Eden';
 
 INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
@@ -102,11 +102,6 @@ AND a.Title = 'Take Me Back To Eden';
 
 INSERT INTO SONG_GENRE (SongID, Genre)
 SELECT SongID, 'Alternative Metal'
-FROM SONG;
-
-
-INSERT INTO SONG_LANGUAGE (SongID, Language)
-SELECT SongID, 'English'
 FROM SONG;
 
 
