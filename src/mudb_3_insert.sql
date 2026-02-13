@@ -73,4 +73,4 @@ INSERT INTO SONG_GENRE (SongID, Genre) SELECT SongID,'Pop Punk' FROM SONG;
 
 INSERT INTO SONG_LANGUAGE (SongID, Language) SELECT SongID,'English' FROM SONG;
 
-INSERT INTO RATING (Score, Username, SongID) SELECT 5,'xcesiv',SongID FROM SONG WHERE Title='Everyone''s Talking';
+INSERT INTO RATING (Score, Username, SongID) SELECT 5,'xcesiv',SongID FROM SONG WHERE Title='SUCKERPUNCH';
