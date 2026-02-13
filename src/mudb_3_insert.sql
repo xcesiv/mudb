@@ -49,55 +49,55 @@ AND a.Title = 'Take Me Back To Eden';
 INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
 SELECT s.SongID, a.AlbumID, 4
 FROM SONG s, ALBUM a
-WHERE s.Title = ‘Aqua Regia‘
+WHERE s.Title = 'Aqua Regia'
 AND a.Title = 'Take Me Back To Eden';
 
 INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
 SELECT s.SongID, a.AlbumID, 5
 FROM SONG s, ALBUM a
-WHERE s.Title = ‘Vote’
+WHERE s.Title = 'Vote'
 AND a.Title = 'Take Me Back To Eden';
 
 INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
 SELECT s.SongID, a.AlbumID, 6
 FROM SONG s, ALBUM a
-WHERE s.Title = ‘Ascensionism’
+WHERE s.Title = 'Ascensionism'
 AND a.Title = 'Take Me Back To Eden';
 
 INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
 SELECT s.SongID, a.AlbumID, 7
 FROM SONG s, ALBUM a
-WHERE s.Title = ‘Are You Really Okay’
+WHERE s.Title = 'Are You Really Okay'
 AND a.Title = 'Take Me Back To Eden';
 
 INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
 SELECT s.SongID, a.AlbumID, 8
 FROM SONG s, ALBUM a
-WHERE s.Title = ‘The Apparition’
+WHERE s.Title = 'The Apparition'
 AND a.Title = 'Take Me Back To Eden';
 
 INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
 SELECT s.SongID, a.AlbumID, 9
 FROM SONG s, ALBUM a
-WHERE s.Title = ‘DYWTYLM’
+WHERE s.Title = 'DYWTYLM'
 AND a.Title = 'Take Me Back To Eden';
 
 INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
 SELECT s.SongID, a.AlbumID, 10
 FROM SONG s, ALBUM a
-WHERE s.Title = ‘Rain’
+WHERE s.Title = 'Rain'
 AND a.Title = 'Take Me Back To Eden';
 
 INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
 SELECT s.SongID, a.AlbumID, 11
 FROM SONG s, ALBUM a
-WHERE s.Title = ’Take Me Back To Eden’
+WHERE s.Title = 'Take Me Back To Eden'
 AND a.Title = 'Take Me Back To Eden';
 
 INSERT INTO CONTAINS (SongID, AlbumID, TrackNumber)
 SELECT s.SongID, a.AlbumID, 12
 FROM SONG s, ALBUM a
-WHERE s.Title = ‘Euclid’
+WHERE s.Title = 'Euclid'
 AND a.Title = 'Take Me Back To Eden';
 
 INSERT INTO SONG_GENRE (SongID, Genre)
