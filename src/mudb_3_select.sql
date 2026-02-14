@@ -77,6 +77,6 @@ WHERE sg.Genre = 'Alternative Metal';
 /*Select all English songs with ratings above 3*/
 SELECT s.Title
 FROM SONG s
-JOIN RATINGS r
-ON s.SongID = r.SongID
-WHERE s.Language = 'English' AND s.Score > 3;
+JOIN RATING r ON s.SongID = r.SongID
+JOIN SONG_LANGUAGE sl ON sl.SongID = s.SongID
+WHERE sl.Language = 'English'AND r.Score > 3;
