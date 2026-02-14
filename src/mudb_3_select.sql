@@ -64,8 +64,9 @@ WHERE S.Duration = (Select MAX(SONG.Duration)
 
 /*Select all song titles that in are Spanish*/
 SELECT s.Title
-FROM SONG s 
-WHERE s.Language = 'Spanish';
+FROM SONG s
+JOIN SONG_LANGUAGE sl ON sl.SongID = s.SongID
+WHERE sl.Language = 'Spanish';
 
 /*Select all songID and song titles in Alternative Metal genre */
 Select s.Title, s.SongID
