@@ -115,7 +115,7 @@ INSERT INTO RATING (Score, Username, SongID)
 SELECT 5, 'Ro', SongID
 FROM SONG
 WHERE Title IN ('Chokehold', 'The Summoning', 'Take Me Back To Eden');
-=======
+
 /* Brandon - Inserts */
 INSERT INTO MUDB_USER (Username, Password, Role, Email) VALUES ('xcesiv','password123','Admin','xcesiv@github.com');
 
@@ -859,5 +859,4 @@ INSERT INTO RATING (Score, Username, SongID) SELECT 5,'jburkmier',SongID FROM SO
 /*Brandon's moved here to assign all songs English: IF you have a song that is not in English, place it below this when you merege*/
 INSERT INTO SONG_LANGUAGE (SongID, Language) SELECT SongID,'English' FROM SONG;
 
-INSERT INTO SONG_LANGUAGE(SongID, Language) SELECT SongID, 'Spanish' WHERE Title ='Gracias por la Musica';
-INSERT INTO SONG_LANGUAGE(SongID, Language) SELECT SongID, 'Spanish' WHERE Title ='Al andar';
+INSERT INTO SONG_LANGUAGE (SongID, Language) SELECT SongID, 'Spanish' FROM SONG;
