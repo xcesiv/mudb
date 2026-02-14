@@ -24,12 +24,10 @@ SELECT
   AVG(r.Score) AS Average_Rating
 FROM RATING r
 JOIN SONG s ON r.SongID = s.SongID
-JOIN ALBUM a ON a.ArtistID = (
-    SELECT ArtistID
-    FROM ARTIST
-    WHERE ARTIST.ArtistID = a.ArtistID
-)
-GROUP BY s.Title, a.Title;
+JOIN CONTAINS c ON c.SongID = s.SongID
+JOIN ALBUM a ON a.AlbumID = c.AlbumID
+GROUP BY s.SongID, s.Title, a.AlbumID, a.Title
+ORDER BY a.Title, s.Title;
 
 /* Albums Released Per Year */
 SELECT
