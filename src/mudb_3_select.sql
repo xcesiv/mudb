@@ -14,7 +14,7 @@ SELECT sg.Genre, COUNT(sg.SongID) AS TotalSongs
 FROM SONG_GENRE sg
 GROUP BY sg.Genre
 ORDER BY TotalSongs DESC;
-=======
+
 /* Select Statements */
 
 /* Average Rating Per Song Grouped by Album */
@@ -24,12 +24,10 @@ SELECT
   AVG(r.Score) AS Average_Rating
 FROM RATING r
 JOIN SONG s ON r.SongID = s.SongID
-JOIN ALBUM a ON a.ArtistID = (
-    SELECT ArtistID
-    FROM ARTIST
-    WHERE ARTIST.ArtistID = a.ArtistID
-)
-GROUP BY s.Title, a.Title;
+JOIN CONTAINS c ON c.SongID = s.SongID
+JOIN ALBUM a ON a.AlbumID = c.AlbumID
+GROUP BY s.SongID, s.Title, a.AlbumID, a.Title
+ORDER BY a.Title, s.Title;
 
 /* Albums Released Per Year */
 SELECT
@@ -66,17 +64,19 @@ WHERE S.Duration = (Select MAX(SONG.Duration)
 
 /*Select all song titles that in are Spanish*/
 SELECT s.Title
-FROM SONG s 
-WHERE s.Language = 'Spanish';
+FROM SONG s
+JOIN SONG_LANGUAGE sl ON sl.SongID = s.SongID
+WHERE sl.Language = 'Spanish';
 
 /*Select all songID and song titles in Alternative Metal genre */
-Select s.Title, s.SongID
-FROM Song S
-WHERE s.genre = 'Alternative Metal';
+SELECT s.Title, s.SongID
+FROM SONG s
+JOIN SONG_GENERE sg ON sg.SongID = s.SongID
+WHERE sg.Genre = 'Alternative Metal';
 
 /*Select all English songs with ratings above 3*/
 SELECT s.Title
 FROM SONG s
-JOIN RATINGS r
-ON s.SongID = r.SongID
-WHERE s.Language = 'English' AND s.Score > 3;
+JOIN RATING r ON s.SongID = r.SongID
+JOIN SONG_LANGUAGE sl ON sl.SongID = s.SongID
+WHERE sl.Language = 'English'AND r.Score > 3;

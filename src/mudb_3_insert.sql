@@ -115,7 +115,7 @@ INSERT INTO RATING (Score, Username, SongID)
 SELECT 5, 'Ro', SongID
 FROM SONG
 WHERE Title IN ('Chokehold', 'The Summoning', 'Take Me Back To Eden');
-=======
+
 /* Brandon - Inserts */
 INSERT INTO MUDB_USER (Username, Password, Role, Email) VALUES ('xcesiv','password123','Admin','xcesiv@github.com');
 
