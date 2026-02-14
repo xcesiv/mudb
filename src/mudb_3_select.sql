@@ -69,9 +69,10 @@ JOIN SONG_LANGUAGE sl ON sl.SongID = s.SongID
 WHERE sl.Language = 'Spanish';
 
 /*Select all songID and song titles in Alternative Metal genre */
-Select s.Title, s.SongID
-FROM Song S
-WHERE s.genre = 'Alternative Metal';
+SELECT s.Title, s.SongID
+FROM SONG s
+JOIN SONG_GENERE sg ON sg.SongID = s.SongID
+WHERE sg.Genre = 'Alternative Metal';
 
 /*Select all English songs with ratings above 3*/
 SELECT s.Title
