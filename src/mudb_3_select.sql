@@ -14,7 +14,7 @@ SELECT sg.Genre, COUNT(sg.SongID) AS TotalSongs
 FROM SONG_GENRE sg
 GROUP BY sg.Genre
 ORDER BY TotalSongs DESC;
-=======
+
 /* Select Statements */
 
 /* Average Rating Per Song Grouped by Album */
