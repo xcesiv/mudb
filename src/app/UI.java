@@ -10,7 +10,7 @@ public class UI {
 	private Connection connection;
 
 	public void run() {
-		// connectOrExit();
+		connectOrExit();
 		menu();
 		closeConnection();
 	}
