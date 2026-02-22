@@ -141,4 +141,5 @@ vite.config.ts.timestamp-*
 
 # MacOS Files
 .DS_Store
+
 .idea
