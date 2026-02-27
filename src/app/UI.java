@@ -2,13 +2,14 @@ package app;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 import java.io.Console;
 
 public class UI {
-	private final Scanner scanner = new Scanner(System.in);
-	private Connection connection;
+	private static final Scanner scanner = new Scanner(System.in);
+	private static Connection connection;
 
 	public void run() {
 		connectOrExit();
@@ -21,8 +22,8 @@ public class UI {
 			System.out.println();
 			System.out.println("MUDB Database Connection Setup");
 
-			String url = promptRequiredString("URL (ex: jdbc:mysql://localhost:3306/MUDB)");
-			String user = promptRequiredString("DB Username");
+			String url = promptRequiredString(scanner, "URL (ex: jdbc:mysql://localhost:3306/MUDB)");
+			String user = promptRequiredString(scanner, "DB Username");
 			String pass = promptPassword("DB Password");
 
 			try {
@@ -31,7 +32,7 @@ public class UI {
 				return;
 			} catch (SQLException ex) {
 				System.out.println("Connection failed: " + ex.getMessage());
-				boolean retry = confirm("Try again?");
+				boolean retry = confirm(scanner, "Try again?");
 				if (!retry) {
 					System.out.println("Exiting.");
 					System.exit(0);
@@ -40,7 +41,7 @@ public class UI {
 		}
 	}
 
-	//Makes password appear as blank when typed in command line	
+	//Makes password appear as blank when typed in command line
 	private String promptPassword(String prompt) {
 		Console console = System.console();
 		if (console != null) {
@@ -82,7 +83,7 @@ public class UI {
 	}
 
 	// select a number in the range
-	private int promptIntInRange(String label, int min, int max) {
+	public static int promptIntInRange(String label, int min, int max) {
 		while (true) {
 			System.out.print(label + " (" + min + "-" + max + "): ");
 			String raw = scanner.nextLine().trim();
@@ -99,8 +100,21 @@ public class UI {
 		}
 	}
 
+	// select a number any integer
+	public static int promptInt(Scanner scanner, String label) {
+		while (true) {
+			System.out.print(label + ": ");
+			String raw = scanner.nextLine().trim();
+			try {
+				return Integer.parseInt(raw);
+			} catch (NumberFormatException ex) {
+				System.out.println("Please enter a valid number.");
+			}
+		}
+	}
+
 	// Required string prompt
-	private String promptRequiredString(String label) {
+	public static String promptRequiredString(Scanner scanner, String label) {
 		while (true) {
 			System.out.print(label + ": ");
 			String value = scanner.nextLine().trim();
@@ -110,13 +124,13 @@ public class UI {
 	}
 
 	// Optional string prompt
-	private String promptOptionalString(String label) {
+	public static String promptOptionalString(String label) {
 		System.out.print(label + " (optional): ");
 		return scanner.nextLine();
 	}
 
 	// confirm yes or no message
-	private boolean confirm(String message) {
+	public static boolean confirm(Scanner scanner, String message) {
 		while (true) {
 			System.out.print(message + " (y/n): ");
 			String raw = scanner.nextLine().trim().toLowerCase();
@@ -133,6 +147,41 @@ public class UI {
 		try {
 			connection.close();
 		} catch (SQLException ignored) {
+		}
+	}
+
+	//Checks if username is in the MUDB_USER table
+	public static void userMatch(String user){
+		//Query to get username from MUDB_USER table
+		String checkUserSql = "SELECT Username FROM MUDB_USER WHERE Username = ?";
+		try (PreparedStatement checkUserStmt = connection.prepareStatement(checkUserSql)) {
+			checkUserStmt.setString(1, user);
+			var userResultSet = checkUserStmt.executeQuery();
+
+			if (!userResultSet.next()) {
+				throw new IllegalArgumentException("Username does not exist in the MUDB_USER table.");
+			}
+		} catch (SQLException e) {
+			System.err.println("Error checking username: " + e.getMessage());
+		}
+	}
+
+	//check admin role
+	public static boolean isAdmin(Connection connection, String user) {
+		String sql = "SELECT Role FROM MUDB_USER WHERE Username = ?";
+		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+			stmt.setString(1, user);
+			var rs = stmt.executeQuery();
+			if (!rs.next()) return false;
+
+			String role = rs.getString("Role");
+			if (role == null) return false;
+
+			String r = role.trim().toLowerCase();
+			return r.equals("admin") || r.equals("administrator");
+		} catch (SQLException e) {
+			System.err.println("Error checking admin role: " + e.getMessage());
+			return false;
 		}
 	}
 }

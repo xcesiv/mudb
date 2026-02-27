@@ -40,12 +40,12 @@ public class CreateUI {
 		String user = scanner.nextLine();
 
 		//Check if user is in the MUDB_USER table
-		userMatch(user);
+		UI.userMatch(user);
 
 		System.out.println("Enter the Song Title to be rated:");
 		String songTitle = scanner.nextLine();
 		System.out.println();
-		
+
 		//Query to find SongID from song title
 		String getSongIdSql = "SELECT SongID FROM SONG WHERE Title = ?";
 		try (PreparedStatement getSongIdStmt = connection.prepareStatement(getSongIdSql)) {
@@ -82,22 +82,6 @@ public class CreateUI {
 			}
 		} catch (SQLException e) {
 			System.err.println("Error inserting review: " + e.getMessage());
-		}
-	}
-
-	//Checks if username is in the MUDB_USER table
-	public void userMatch(String user){
-		//Query to get username from MUDB_USER table
-		String checkUserSql = "SELECT Username FROM MUDB_USER WHERE Username = ?";
-		try (PreparedStatement checkUserStmt = connection.prepareStatement(checkUserSql)) {
-			checkUserStmt.setString(1, user);
-			var userResultSet = checkUserStmt.executeQuery();
-
-			if (!userResultSet.next()) {
-				throw new IllegalArgumentException("Username does not exist in the MUDB_USER table.");
-			}
-		} catch (SQLException e) {
-			System.err.println("Error checking username: " + e.getMessage());
 		}
 	}
 
