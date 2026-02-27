@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.io.Console;
 
 public class UI {
 	private final Scanner scanner = new Scanner(System.in);
@@ -22,7 +23,7 @@ public class UI {
 
 			String url = promptRequiredString("URL (ex: jdbc:mysql://localhost:3306/MUDB)");
 			String user = promptRequiredString("DB Username");
-			String pass = promptOptionalString("DB Password");
+			String pass = promptPassword("DB Password");
 
 			try {
 				connection = DriverManager.getConnection(url, user, pass);
@@ -36,6 +37,18 @@ public class UI {
 					System.exit(0);
 				}
 			}
+		}
+	}
+
+	//Makes password appear as blank when typed in command line	
+	private String promptPassword(String prompt) {
+		Console console = System.console();
+		if (console != null) {
+			char[] passwordArray = console.readPassword(prompt + ": ");
+			return new String(passwordArray);
+		} else {
+			System.out.print(prompt + ": ");
+			return scanner.nextLine();
 		}
 	}
 
