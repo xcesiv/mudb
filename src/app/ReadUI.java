@@ -19,7 +19,8 @@ public class ReadUI {
 		boolean exit = false;
 		int subChoice;
 		int rating;
-		String albumTitle;
+
+		String artistName;
 		String albumName;
 		while (!exit) {
 			System.out.println("SONG TITLE LOOK UP MENU:");
@@ -28,57 +29,162 @@ public class ReadUI {
 			System.out.println("3. Look Up songs by Rating?");
 			System.out.println("4. Exit");
 			subChoice = scanner.nextInt();
-				switch (subChoice) {
-					case 1:
-						System.out.println("Input an Album title to filter by:");
-						albumName = scanner.next();
-
-						break;
-						case 2:
-							System.out.println("Input an Artist Name to filter by:");
-							albumTitle = scanner.next();
-							//Select SONG.title
-							//FROM SONG, features, artist
-							//where SONG.SongID = features.SongID AND artist.ArtistID = features.ArtistID AND artist.name = ?
-							break;
-							case 3:
-								System.out.println("Input Rating to filter by:");
-								rating = scanner.nextInt();
-								// SELECT S.title
-								//FRON SONG as S, RATING as R
-								//WHERE S.SongID = R.SongID AND R.Socre = ?
-								break;
-								case 4:
-									System.out.println("EXITING SELECT MENU...");
-									exit = true;
-									break;
-								default:
-								System.out.println("Invalid choice. Please try again.");
-								break;
-						}
-					}
-
-			}
-			public void albumFilter(Connection conn, String albumName) {
-			PreparedStatement ps = null;
-			ResultSet rs = null;
-			try{
-				ps	= conn.prepareStatement(
-						"Select SONG.title\n"+
-								"FROM SONG, ALBUM, contains\n"+
-								"WHERE SONG.SongID = contains.SongID AND Album.AlbumID = contains.AlbumID AND Album.title = ?\n");
-				ps.setString(1, albumName);
-
-			}
-			catch(SQLException e){
-				System.out.println("error");
-			}
-			}
-			public void artistFilter(Connection conn, String artistName) {
-
-			}
-			public void ratingFilter(Connection conn, String rating) {
-
+			switch (subChoice) {
+				case 1:
+					System.out.println("Input an Album title to filter by:");
+					albumName = scanner.next();
+					albumFilter(connection, albumName);
+					break;
+				case 2:
+					System.out.println("Input an Artist Name to filter by:");
+					artistName = scanner.next();
+					artistFilter(connection, artistName);
+					break;
+				case 3:
+					System.out.println("Input Rating to filter by:");
+					rating = scanner.nextInt();
+					ratingFilter(connection, rating);
+					break;
+				case 4:
+					System.out.println("EXITING SELECT MENU...");
+					exit = true;
+					break;
+				default:
+					System.out.println("Invalid choice. Please try again.");
+					break;
 			}
 		}
+
+	}
+	public void albumFilter(Connection conn, String albumName) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try{
+			ps	= conn.prepareStatement("""
+                	Select SONG.title
+                    FROM SONG, ALBUM, contains
+                    WHERE SONG.SongID = contains.SongID AND Album.AlbumID = contains.AlbumID AND Album.title = ?
+                                            """);
+			ps.setString(1, albumName);
+
+			rs = ps.executeQuery();
+
+			System.out.println("""
+                         -------------------
+                            SONG RESULTS    
+                        -------------------""");
+			if(rs.getFetchSize() == 0){
+				System.out.print("No results found. :'( ");
+			}
+			else{
+				while(rs.next()){
+					System.out.print(rs.getString(1) + "\t");
+				}
+			}
+		}
+		catch(SQLException e){
+			System.out.println("error");
+		}
+		finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+	public void artistFilter(Connection conn, String artistName) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try{
+			ps	= conn.prepareStatement("""
+                	Select SONG.title
+					FROM SONG, features, artist
+					where SONG.SongID = features.SongID AND artist.ArtistID = features.ArtistID AND artist.name = ?
+                                            """);
+			ps.setString(1, artistName);
+
+			rs = ps.executeQuery();
+
+			System.out.println("""
+                         -------------------
+                            SONG RESULTS    
+                        -------------------""");
+			if(rs.getFetchSize() == 0){
+				System.out.print("No results found. :'( ");
+			}
+			else{
+				while(rs.next()){
+					System.out.print(rs.getString(1) + "\t");
+				}
+			}
+		}
+		catch(SQLException e){
+			System.out.println("error");
+		}
+		finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+	public void ratingFilter(Connection conn, int rating) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try{
+			ps	= conn.prepareStatement("""
+                		// SELECT S.title
+								//FRON SONG as S, RATING as R
+								//WHERE S.SongID = R.SongID AND R.Socre = ?
+                                            """);
+			ps.setInt(1, rating);
+
+			rs = ps.executeQuery();
+
+			System.out.println("""
+                         -------------------
+                            SONG RESULTS    
+                        -------------------""");
+			if(rs.getFetchSize() == 0){
+				System.out.print("No results found. :'( ");
+			}
+			else{
+				while(rs.next()){
+					System.out.print(rs.getString(1) + "\t");
+				}
+			}
+		}
+		catch(SQLException e){
+			System.out.println("error");
+		}
+		finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+}
+
 
