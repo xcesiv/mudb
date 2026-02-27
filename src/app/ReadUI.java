@@ -28,21 +28,47 @@ public class ReadUI {
 			System.out.println("2. Look Up songs by Artist?");
 			System.out.println("3. Look Up songs by Rating?");
 			System.out.println("4. Exit");
-			subChoice = scanner.nextInt();
+			while(true){
+				if(scanner.hasNextInt()){
+					subChoice = scanner.nextInt();
+					break;
+				} else {
+					System.out.println("Please enter an integer.");
+					scanner.next();
+				}
+			}
 			switch (subChoice) {
 				case 1:
-					System.out.println("Input an Album title to filter by:");
-					albumName = scanner.next();
+					while(true){
+						System.out.print("Input an Album title to filter by:");
+						albumName = scanner.nextLine().trim();
+						if (albumName.equals("")|| albumName == null) {
+							System.out.println("Please enter a valid Album Title");
+						} else{ break;}
+					}
 					albumFilter(connection, albumName);
 					break;
 				case 2:
-					System.out.println("Input an Artist Name to filter by:");
-					artistName = scanner.next();
+					while(true){
+						System.out.print("Input an Artist Name to filter by:");
+						artistName= scanner.nextLine().trim();
+						if (artistName.equals("")|| artistName == null) {
+							System.out.println("Please enter a valid Artist Name");
+						} else{ break;}
+					}
 					artistFilter(connection, artistName);
 					break;
 				case 3:
-					System.out.println("Input Rating to filter by:");
-					rating = scanner.nextInt();
+					while(true){
+						System.out.print("Input Rating to filter by:");
+						if(scanner.hasNextInt()){
+							rating = scanner.nextInt();
+							break;
+						} else {
+							System.out.println("Please enter an integer.");
+							scanner.next();
+						}
+					}
 					ratingFilter(connection, rating);
 					break;
 				case 4:
@@ -117,7 +143,7 @@ public class ReadUI {
                             SONG RESULTS    
                         -------------------""");
 			if(rs.getFetchSize() == 0){
-				System.out.print("No results found. :'( ");
+				System.out.println("No results found. :'( ");
 			}
 			else{
 				while(rs.next()){
