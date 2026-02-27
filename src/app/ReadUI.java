@@ -25,12 +25,12 @@ public class ReadUI {
 		while (!exit) {
 			System.out.println(" ");
 			System.out.println("=========================");
-			System.out.println("SONG SELECT MENU");
+			System.out.println("    SONG SELECT MENU");
+			System.out.println("=========================");
 			System.out.println("1. Look Up songs by Album?");
 			System.out.println("2. Look Up songs by Artist?");
 			System.out.println("3. Look Up songs by Rating?");
 			System.out.println("4. Exit");
-			System.out.println("==========================");
 			System.out.println(" ");
 			System.out.print("Please enter your choice: ");
 			while(true){
@@ -102,6 +102,7 @@ public class ReadUI {
 			rs = ps.executeQuery();
 
 			System.out.println("""
+                         
                          -------------------
                             SONG RESULTS    
                         -------------------
@@ -112,7 +113,7 @@ public class ReadUI {
 				}
 		}
 		catch(SQLException e){
-			System.out.println("error");
+			e.printStackTrace();
 		}
 		finally {
 			try {
@@ -142,6 +143,7 @@ public class ReadUI {
 			rs = ps.executeQuery();
 
 			System.out.println("""
+                         
                          -------------------
                             SONG RESULTS    
                         -------------------
@@ -154,7 +156,7 @@ public class ReadUI {
 
 		}
 		catch(SQLException e){
-			System.out.println("error");
+			e.printStackTrace();
 		}
 		finally {
 			try {
@@ -175,7 +177,7 @@ public class ReadUI {
 		ResultSet rs = null;
 		try{
 			ps	= conn.prepareStatement("""
-                		SELECT S.title
+                		SELECT S.Title
 						FRON SONG as S, RATING as R
 						WHERE S.SongID = R.SongID AND R.Score = ?
                                             """);
@@ -184,6 +186,7 @@ public class ReadUI {
 			rs = ps.executeQuery();
 
 			System.out.println("""
+                         
                          -------------------
                             SONG RESULTS    
                         -------------------
@@ -195,7 +198,7 @@ public class ReadUI {
 
 		}
 		catch(SQLException e){
-			System.out.println("error");
+			e.printStackTrace();
 		}
 		finally {
 			try {
