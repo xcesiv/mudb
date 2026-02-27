@@ -31,11 +31,11 @@ public class ReadUI {
 			while(true){
 				if(scanner.hasNextInt()){
 					subChoice = scanner.nextInt();
-					scanner.next();
+					scanner.nextLine(); //consume new line
 					break;
 				} else {
 					System.out.println("Please enter an integer.");
-					scanner.next();
+					scanner.nextLine(); //consume bad line
 				}
 			}
 			switch (subChoice) {
@@ -43,9 +43,9 @@ public class ReadUI {
 					while(true){
 						System.out.print("Input an Album title to filter by: ");
 						albumName = scanner.nextLine().trim();
-						if (albumName.equals("")|| albumName == null) {
+						if (albumName.isBlank()) {
 							System.out.println("Please enter a valid Album Title");
-						} else{ break;}
+						} else break;
 					}
 					albumFilter(connection, albumName);
 					break;
@@ -53,7 +53,7 @@ public class ReadUI {
 					while(true){
 						System.out.print("Input an Artist Name to filter by: ");
 						artistName= scanner.nextLine().trim();
-						if (artistName.equals("")|| artistName == null) {
+						if (artistName.isBlank()) {
 							System.out.println("Please enter a valid Artist Name");
 						} else{ break;}
 					}
@@ -166,9 +166,9 @@ public class ReadUI {
 		ResultSet rs = null;
 		try{
 			ps	= conn.prepareStatement("""
-                		// SELECT S.title
-								//FRON SONG as S, RATING as R
-								//WHERE S.SongID = R.SongID AND R.Socre = ?
+                		SELECT S.title
+						FRON SONG as S, RATING as R
+						WHERE S.SongID = R.SongID AND R.Socre = ?
                                             """);
 			ps.setInt(1, rating);
 
