@@ -15,6 +15,9 @@ public class ReadUI {
 		this.connection = connection;
 	}
 
+	/**
+	 * Runs SElECT menu, allows user to querry the data base with prepared statements.
+	 */
 	public void run() {
 		boolean exit = false;
 		int subChoice;
@@ -88,6 +91,12 @@ public class ReadUI {
 		}
 
 	}
+
+	/**
+	 * Takes album name and retuns songs on ablum.
+	 * @param conn Connection Object
+	 * @param albumName String
+	 */
 	public void albumFilter(Connection conn, String albumName) {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -129,6 +138,12 @@ public class ReadUI {
 
 		}
 	}
+
+	/**
+	 * Takes artist Name and returns songs from that artist
+	 * @param conn Connection Object
+	 * @param artistName String
+	 */
 	public void artistFilter(Connection conn, String artistName) {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -147,8 +162,8 @@ public class ReadUI {
                          -------------------
                             SONG RESULTS    
                         -------------------
-                        		...
-                        		""");
+                                ...
+             				""");
 
 				while(rs.next()){
 					System.out.println(rs.getString(1));
@@ -172,6 +187,12 @@ public class ReadUI {
 
 		}
 	}
+
+	/**
+	 * Takes user rating and prints songs with same rating
+	 * @param conn Connection Object
+	 * @param rating int
+	 */
 	public void ratingFilter(Connection conn, int rating) {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -190,9 +211,10 @@ public class ReadUI {
                          -------------------
                             SONG RESULTS    
                         -------------------
-                        		...
-                        		""");
-				while(rs.next()){
+                                ...
+             				""");
+
+			while(rs.next()){
 					System.out.println(rs.getString(1));
 				}
 
