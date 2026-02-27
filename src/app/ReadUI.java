@@ -1,6 +1,9 @@
 package app;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class ReadUI {
@@ -14,70 +17,68 @@ public class ReadUI {
 
 	public void run() {
 		boolean exit = false;
-		boolean submenuExit = false;
 		int subChoice;
-		int choice;
+		int rating;
+		String albumTitle;
+		String albumName;
 		while (!exit) {
-			System.out.println("SELECT MENU (What do you want to see?):");
-			System.out.println("1. Look up Songs");
-			System.out.println("2. Look up Albums.");
-			System.out.println("3. Look up Artist.");
+			System.out.println("SONG TITLE LOOK UP MENU:");
+			System.out.println("1. Look Up songs by Album?");
+			System.out.println("2. Look Up songs by Artist?");
+			System.out.println("3. Look Up songs by Rating?");
 			System.out.println("4. Exit");
-			choice = scanner.nextInt();
-			switch (choice) {
-				case 1:
-					while (!submenuExit) {
-						System.out.println("SONG LOOK UP MENU:");
-						System.out.println("1. Look Up songs by Album?");
-						System.out.println("2. Look Up songs by Artist?");
-						System.out.println("3. Look Up songs by Rating?");
-						System.out.println("4. Look Up songs by Duration?");
-						System.out.println("5. Exit");
-						subChoice = scanner.nextInt();
-						switch (subChoice) {
-							case 1:
-								System.out.println("Input Album title:");
-								String albumName = scanner.next();
-								//Select SONG.title
-								//FROM SONG, ALBUM, contains
-								//where SONG.SongID = contains.SongID AND Album.AlbumID = contains.AlbumID AND Album.title = ?
-								break;
-								case 2:
-									System.out.println("Input Artist Name:");
-									String albumTitle = scanner.next();
-									//Select SONG.title
-									//FROM SONG, features, artist
-									//where SONG.SongID = features.SongID AND artist.ArtistID = features.ArtistID AND artist.name = ?
-									break;
-									case 3:
-										System.out.println("Input Rating:");
-										String rating = scanner.nextINT();
+			subChoice = scanner.nextInt();
+				switch (subChoice) {
+					case 1:
+						System.out.println("Input an Album title to filter by:");
+						albumName = scanner.next();
 
+						break;
+						case 2:
+							System.out.println("Input an Artist Name to filter by:");
+							albumTitle = scanner.next();
+							//Select SONG.title
+							//FROM SONG, features, artist
+							//where SONG.SongID = features.SongID AND artist.ArtistID = features.ArtistID AND artist.name = ?
+							break;
+							case 3:
+								System.out.println("Input Rating to filter by:");
+								rating = scanner.nextInt();
+								// SELECT S.title
+								//FRON SONG as S, RATING as R
+								//WHERE S.SongID = R.SongID AND R.Socre = ?
+								break;
+								case 4:
+									System.out.println("EXITING SELECT MENU...");
+									exit = true;
+									break;
+								default:
+								System.out.println("Invalid choice. Please try again.");
+								break;
 						}
 					}
-					break;
-					case 2:
-						while (!submenuExit) {
-							System.out.println("Look Up Albums");
-							System.out.println("1. Look Up Albums by Title");
-							System.out.println("2. Look Up Albums by Artist");
-							System.out.println("3. Look Up Albums by Rating");
-							System.out.println("4. Exit");
-						}
-						break;
-						case 3:
-							while (!submenuExit) {
-								System.out.println("Look Up Artist");
-								System.out.println("1. Look Up Artists by Album?");
-								System.out.println("2. Look Up Artists by Song?");
-								System.out.println("3. Look Up Artists by Age?");
-							}
-							break;
-							case 4:
-								exit = true;
-								break;
-								default:break;
+
+			}
+			public void albumFilter(Connection conn, String albumName) {
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			try{
+				ps	= conn.prepareStatement(
+						"Select SONG.title\n"+
+								"FROM SONG, ALBUM, contains\n"+
+								"WHERE SONG.SongID = contains.SongID AND Album.AlbumID = contains.AlbumID AND Album.title = ?\n");
+				ps.setString(1, albumName);
+
+			}
+			catch(SQLException e){
+				System.out.println("error");
+			}
+			}
+			public void artistFilter(Connection conn, String artistName) {
+
+			}
+			public void ratingFilter(Connection conn, String rating) {
+
 			}
 		}
-	}
-}
+
