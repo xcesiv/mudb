@@ -23,11 +23,16 @@ public class ReadUI {
 		String artistName;
 		String albumName;
 		while (!exit) {
-			System.out.println("SONG TITLE LOOK UP MENU:");
+			System.out.println(" ");
+			System.out.println("=========================");
+			System.out.println("SONG SELECT MENU");
 			System.out.println("1. Look Up songs by Album?");
 			System.out.println("2. Look Up songs by Artist?");
 			System.out.println("3. Look Up songs by Rating?");
 			System.out.println("4. Exit");
+			System.out.println("==========================");
+			System.out.println(" ");
+			System.out.print("Please enter your choice: ");
 			while(true){
 				if(scanner.hasNextInt()){
 					subChoice = scanner.nextInt();
@@ -99,9 +104,11 @@ public class ReadUI {
 			System.out.println("""
                          -------------------
                             SONG RESULTS    
-                        -------------------""");
+                        -------------------
+                                ...
+             				""");
 				while(rs.next()){
-					System.out.print(rs.getString(1) + "\t");
+					System.out.println(rs.getString(1));
 				}
 		}
 		catch(SQLException e){
@@ -137,10 +144,12 @@ public class ReadUI {
 			System.out.println("""
                          -------------------
                             SONG RESULTS    
-                        -------------------""");
+                        -------------------
+                        		...
+                        		""");
 
 				while(rs.next()){
-					System.out.print(rs.getString(1) + "\t");
+					System.out.println(rs.getString(1));
 				}
 
 		}
@@ -168,7 +177,7 @@ public class ReadUI {
 			ps	= conn.prepareStatement("""
                 		SELECT S.title
 						FRON SONG as S, RATING as R
-						WHERE S.SongID = R.SongID AND R.Socre = ?
+						WHERE S.SongID = R.SongID AND R.Score = ?
                                             """);
 			ps.setInt(1, rating);
 
@@ -177,9 +186,11 @@ public class ReadUI {
 			System.out.println("""
                          -------------------
                             SONG RESULTS    
-                        -------------------""");
+                        -------------------
+                        		...
+                        		""");
 				while(rs.next()){
-					System.out.print(rs.getString(1) + "\t");
+					System.out.println(rs.getString(1));
 				}
 
 		}
