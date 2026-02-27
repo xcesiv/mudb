@@ -31,6 +31,7 @@ public class ReadUI {
 			while(true){
 				if(scanner.hasNextInt()){
 					subChoice = scanner.nextInt();
+					scanner.next();
 					break;
 				} else {
 					System.out.println("Please enter an integer.");
@@ -40,7 +41,7 @@ public class ReadUI {
 			switch (subChoice) {
 				case 1:
 					while(true){
-						System.out.print("Input an Album title to filter by:");
+						System.out.print("Input an Album title to filter by: ");
 						albumName = scanner.nextLine().trim();
 						if (albumName.equals("")|| albumName == null) {
 							System.out.println("Please enter a valid Album Title");
@@ -50,7 +51,7 @@ public class ReadUI {
 					break;
 				case 2:
 					while(true){
-						System.out.print("Input an Artist Name to filter by:");
+						System.out.print("Input an Artist Name to filter by: ");
 						artistName= scanner.nextLine().trim();
 						if (artistName.equals("")|| artistName == null) {
 							System.out.println("Please enter a valid Artist Name");
@@ -60,7 +61,7 @@ public class ReadUI {
 					break;
 				case 3:
 					while(true){
-						System.out.print("Input Rating to filter by:");
+						System.out.print("Input Rating to filter by: ");
 						if(scanner.hasNextInt()){
 							rating = scanner.nextInt();
 							break;
@@ -99,14 +100,9 @@ public class ReadUI {
                          -------------------
                             SONG RESULTS    
                         -------------------""");
-			if(rs.getFetchSize() == 0){
-				System.out.print("No results found. :'( ");
-			}
-			else{
 				while(rs.next()){
 					System.out.print(rs.getString(1) + "\t");
 				}
-			}
 		}
 		catch(SQLException e){
 			System.out.println("error");
@@ -142,14 +138,11 @@ public class ReadUI {
                          -------------------
                             SONG RESULTS    
                         -------------------""");
-			if(rs.getFetchSize() == 0){
-				System.out.println("No results found. :'( ");
-			}
-			else{
+
 				while(rs.next()){
 					System.out.print(rs.getString(1) + "\t");
 				}
-			}
+
 		}
 		catch(SQLException e){
 			System.out.println("error");
@@ -185,14 +178,10 @@ public class ReadUI {
                          -------------------
                             SONG RESULTS    
                         -------------------""");
-			if(rs.getFetchSize() == 0){
-				System.out.print("No results found. :'( ");
-			}
-			else{
 				while(rs.next()){
 					System.out.print(rs.getString(1) + "\t");
 				}
-			}
+
 		}
 		catch(SQLException e){
 			System.out.println("error");
