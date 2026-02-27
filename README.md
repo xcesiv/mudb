@@ -28,10 +28,7 @@ MUDB is a Java-based application that allows users to manage music data using a 
         - Rating
 
     Delete
-        - Remove Users
         - Remove Songs
-        - Remove Artists
-        - Remove Albums
         - Remove Ratings
 
     Project Structure:
