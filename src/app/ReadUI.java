@@ -178,7 +178,7 @@ public class ReadUI {
 		try{
 			ps	= conn.prepareStatement("""
                 		SELECT S.Title
-						FRON SONG as S, RATING as R
+						FROM SONG as S, RATING as R
 						WHERE S.SongID = R.SongID AND R.Score = ?
                                             """);
 			ps.setInt(1, rating);
