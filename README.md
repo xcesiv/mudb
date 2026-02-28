@@ -75,6 +75,14 @@ Testing UpdateUI.java
             New Duration: 321} 
     - Once update is complete, you may continue to update other selections or return to the Main Menu
 
+How to Test ReadUI.java
+
+    -Select Option 2 to enter "SONG SELECT MENU"
+    -Select an option by typing an interger representation 1-4. 
+        (Example: Option 2) Look Up Songs by Artist. 
+            Imput an artist name to filter by: Matt Maeson
+            A list of all songs assosiated with matt masn should appear
+            You are returned to the "Song Select Menu"
 
 Video URL
 
