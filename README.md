@@ -1,12 +1,7 @@
-# mudb
-Music Database SQL structure
-<img width="1078" height="1024" alt="image" src="https://github.com/user-attachments/assets/bbcfefa6-cc23-4028-8884-3137f0618d06" />
+# MUDB - Music Database
 
-
-MUDB - Music Database
-
-Project Overview
-MUDB is a Java-based application that allows users to manage music data using a MySQL database. The system supports Create, Read, Update, and Delete functionality for multiple entities including Users, Songs, Artists, Albums, and Ratings. 
+## Project Overview
+MUDB is a Java-based application that allows users to manage music data using a MySQL database. The system supports Create, Read, Update, and Delete functionality for multiple entities including Users, Songs, Artists, Albums, and Ratings.
 
     Features:
     Create
@@ -66,33 +61,41 @@ How to Test CreateUI.java
         - Upon success, you can do another rating for a different song or go back to the Main Menu
 
 Testing UpdateUI.java
-    
+
     - Select Option 3) Update
     - Select an option for what you would like to update
         {Example: Option 2) Update Song
             Enter SongID: 1
             New Title: Test
-            New Duration: 321} 
+            New Duration: 321}
     - Once update is complete, you may continue to update other selections or return to the Main Menu
 
 How to Test ReadUI.java
 
     -Select Option 2 to enter "SONG SELECT MENU"
-    -Select an option by typing an interger representation 1-4. 
-        (Example: Option 2) Look Up Songs by Artist. 
+    -Select an option by typing an interger representation 1-4.
+        (Example: Option 2) Look Up Songs by Artist.
             Imput an artist name to filter by: Matt Maeson
             A list of all songs assosiated with matt masn should appear
             You are returned to the "Song Select Menu"
+
+Testing DeleteUI.Java
+```txt
+- Select Option 4 for Delete
+- Choose option 1 to delete a rating, choose option 2 to delete a song
+- Enter your MUDB username
+- Enter the rating you want to delete (as any user) or enter the song you want to delete (as an admin).
+```
 
 Video URL
 
 Individual Contributions:
 
-    Brandon Scott - UI.java, Delete.java
+    Brandon Scott - UI.java, DeleteUI.java
 
     Matthew Edlin - ReadUI.java
 
-    Jennifer Burkmier - createUI.java
+    Jennifer Burkmier - CreateUI.java
 
     Rocio Penny - UpdateUI.java
 
