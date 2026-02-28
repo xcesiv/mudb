@@ -89,6 +89,8 @@ Testing DeleteUI.Java
 
 Video URL
 
+    https://youtu.be/PFNIP4d28mU
+
 Individual Contributions:
 
     Brandon Scott - UI.java, DeleteUI.java
