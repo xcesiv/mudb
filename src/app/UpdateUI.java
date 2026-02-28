@@ -18,7 +18,7 @@ public class UpdateUI {
 
         while (running) {
             printMenu();
-            int choice = promptInt("Choose option", 1, 6);
+            int choice = UI.promptInt(scanner, "Choose option");
 
             switch (choice) {
                 case 1 -> updateUser();
@@ -78,12 +78,12 @@ public class UpdateUI {
     
     // SONG UPDATE
     private void updateSong() {
-        int songId = promptInt("Enter SongID to update", 1, Integer.MAX_VALUE);
+        int songId = UI.promptInt(scanner, "Enter SongID to update");
 
         System.out.print("New Title: ");
         String title = scanner.nextLine();
 
-        int duration = promptInt("New Duration (seconds)", 1, 10000);
+        int duration = UI.promptInt(scanner, "New Duration (seconds)");
 
         String sql = "UPDATE SONG SET Title=?, Duration=? WHERE SongID=?";
 
@@ -104,7 +104,7 @@ public class UpdateUI {
     // ARTIST UPDATE
     
     private void updateArtist() {
-        int artistId = promptInt("Enter ArtistID to update", 1, Integer.MAX_VALUE);
+        int artistId = UI.promptInt(scanner, "Enter ArtistID to update");
 
         System.out.print("New Name: ");
         String name = scanner.nextLine();
@@ -129,7 +129,7 @@ public class UpdateUI {
 
     // ALBUM UPDATE
     private void updateAlbum() {
-        int albumId = promptInt("Enter AlbumID to update", 1, Integer.MAX_VALUE);
+        int albumId = UI.promptInt(scanner, "Enter AlbumID to update");
 
         System.out.print("New Title: ");
         String title = scanner.nextLine();
@@ -155,8 +155,8 @@ public class UpdateUI {
   
     // RATING UPDATE
     private void updateRating() {
-        int ratingId = promptInt("Enter RatingID to update", 1, Integer.MAX_VALUE);
-        int score = promptInt("New Score (1-5)", 1, 5);
+        int ratingId = UI.promptInt(scanner, "Enter RatingID to update");
+        int score = UI.promptInt(scanner, "New Score (1-5)");
 
         String sql = "UPDATE RATING SET Score=? WHERE RatingID=?";
 
@@ -171,22 +171,4 @@ public class UpdateUI {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
-  
-    // HELPER METHODS
-    private int promptInt(String label, int min, int max) {
-        while (true) {
-            System.out.print(label + ": ");
-            try {
-                int value = Integer.parseInt(scanner.nextLine());
-                if (value < min || value > max) {
-                    System.out.println("Enter value between " + min + " and " + max);
-                    continue;
-                }
-                return value;
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid number.");
-            }
-        }
-    }
-}
+} 
