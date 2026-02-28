@@ -39,7 +39,10 @@ public class DeleteUI {
 		System.out.println();
 		String user = UI.promptRequiredString(scanner, "Enter MUDB username");
 
-		UI.userMatch(user);
+		if (UI.userMatch(user) == false) {
+			System.out.println("User not found. Please try again.");
+			return;
+		}
 
 		String songTitle = UI.promptRequiredString(scanner, "Enter Song Title of the rating to delete");
 		Integer songId = findSongIdByTitle(songTitle);
@@ -74,7 +77,10 @@ public class DeleteUI {
 		System.out.println();
 
 		String adminUser = UI.promptRequiredString(scanner, "Enter admin username");
-		UI.userMatch(adminUser);
+		if (UI.userMatch(adminUser) == false) {
+			System.out.println("User not found. Please try again.");
+			return;
+		}
 
 		if (!UI.isAdmin(connection, adminUser)) {
 			System.out.println("Access denied: user '" + adminUser + "' is not an admin.");
