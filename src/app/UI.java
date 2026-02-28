@@ -151,7 +151,7 @@ public class UI {
 	}
 
 	//Checks if username is in the MUDB_USER table
-	public static void userMatch(String user){
+	public static boolean userMatch(String user) {
 		//Query to get username from MUDB_USER table
 		String checkUserSql = "SELECT Username FROM MUDB_USER WHERE Username = ?";
 		try (PreparedStatement checkUserStmt = connection.prepareStatement(checkUserSql)) {
@@ -159,10 +159,13 @@ public class UI {
 			var userResultSet = checkUserStmt.executeQuery();
 
 			if (!userResultSet.next()) {
-				throw new IllegalArgumentException("Username does not exist in the MUDB_USER table.");
+				System.err.println("Username does not exist in the MUDB_USER table.");
+				return false;
 			}
+			return true; 
 		} catch (SQLException e) {
 			System.err.println("Error checking username: " + e.getMessage());
+			return false;
 		}
 	}
 
