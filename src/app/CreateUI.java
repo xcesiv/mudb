@@ -17,20 +17,20 @@ public class CreateUI {
 
 	//Create Menu
 	public void run() {
-		System.out.println("CREATE MENU");
-		System.out.println("1) Create a rating");
-		System.out.println("2) Exit to MUDB Main Menu");
-		String choice = scanner.nextLine();
+		while (true) {
+			System.out.println("CREATE MENU");
+			System.out.println("1) Create a rating");
+			System.out.println("2) Exit to MUDB Main Menu");
+			String choice = scanner.nextLine();
 
-		if (choice.contains("1")){
-			insertReview();
-		}
-		if (choice.contains("2")){
-			return;
-		}
-		else{
-			System.out.println("Please select 1 or 2");
-			run();
+			if (choice.contains("1")) {
+				insertReview();
+			} else if (choice.contains("2")) {
+				System.out.println("Returning to the MUDB Main Menu...");
+				break;
+			} else {
+				System.out.println("Please select 1 or 2");
+			}
 		}
 	}
 
@@ -40,12 +40,14 @@ public class CreateUI {
 		String user = scanner.nextLine();
 
 		//Check if user is in the MUDB_USER table
-		userMatch(user);
+		if (UI.userMatch(user) == false){
+			return;
+		}else{
 
 		System.out.println("Enter the Song Title to be rated:");
 		String songTitle = scanner.nextLine();
 		System.out.println();
-		
+
 		//Query to find SongID from song title
 		String getSongIdSql = "SELECT SongID FROM SONG WHERE Title = ?";
 		try (PreparedStatement getSongIdStmt = connection.prepareStatement(getSongIdSql)) {
@@ -56,10 +58,13 @@ public class CreateUI {
 				int songID = resultSet.getInt("SongID");
 
 				//Check if user has already rated song
-				songAlreadyRated(user, songID);
+				if (songAlreadyRated(user, songID)){
+					return;
+				}
 
 				System.out.println("Enter your rating on a scale of 1 to 5 with 1 being the worst and 5 being the best:");
 				int rating = scanner.nextInt();
+				scanner.nextLine();
 
 				//Query to insert the rating into the RATING table
 				String insertRatingSql = "INSERT INTO RATING (Score, Username, SongID) VALUES (?, ?, ?)";
@@ -71,7 +76,6 @@ public class CreateUI {
 					int rowsInserted = insertRatingStmt.executeUpdate();
 					if (rowsInserted > 0) {
 						System.out.println("Success!" + user + " rated the song " + songTitle + " a rating score of " + rating);
-						run();
 					} else {
 						System.out.println("Failed to add the rating. Please try again.");
 					}
@@ -83,26 +87,11 @@ public class CreateUI {
 		} catch (SQLException e) {
 			System.err.println("Error inserting review: " + e.getMessage());
 		}
-	}
-
-	//Checks if username is in the MUDB_USER table
-	public void userMatch(String user){
-		//Query to get username from MUDB_USER table
-		String checkUserSql = "SELECT Username FROM MUDB_USER WHERE Username = ?";
-		try (PreparedStatement checkUserStmt = connection.prepareStatement(checkUserSql)) {
-			checkUserStmt.setString(1, user);
-			var userResultSet = checkUserStmt.executeQuery();
-
-			if (!userResultSet.next()) {
-				throw new IllegalArgumentException("Username does not exist in the MUDB_USER table.");
-			}
-		} catch (SQLException e) {
-			System.err.println("Error checking username: " + e.getMessage());
 		}
 	}
 
 	//Checks if username has already rated song
-	public void songAlreadyRated(String user, int songID) throws SQLException {
+	public boolean songAlreadyRated(String user, int songID) throws SQLException {
 		String checkRatingSql = "SELECT * FROM RATING WHERE Username = ? AND SongID = ?";
 		try (PreparedStatement checkRatingStmt = connection.prepareStatement(checkRatingSql)) {
 			checkRatingStmt.setString(1, user);
@@ -111,11 +100,12 @@ public class CreateUI {
 
 			if (ratingResultSet.next()) {
 				System.out.println("You have already rated this song. User can only insert one rating per song");
-				run();
-				throw new IllegalArgumentException("User " + user + " has already rated this song");
+				return true;
 			}
+			return false;
 		} catch (SQLException e) {
 			System.err.println("Error checking rating: " + e.getMessage());
+			return false;
 		}
 	}
 }
