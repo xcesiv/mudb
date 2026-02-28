@@ -27,7 +27,7 @@ public class CreateUI {
 				insertReview();
 			} else if (choice.contains("2")) {
 				System.out.println("Returning to the MUDB Main Menu...");
-				break; // Exit the loop to return to the main menu
+				break;
 			} else {
 				System.out.println("Please select 1 or 2");
 			}
@@ -40,7 +40,9 @@ public class CreateUI {
 		String user = scanner.nextLine();
 
 		//Check if user is in the MUDB_USER table
-		UI.userMatch(user);
+		if (UI.userMatch(user) == false){
+			return;
+		}else{
 
 		System.out.println("Enter the Song Title to be rated:");
 		String songTitle = scanner.nextLine();
@@ -84,6 +86,7 @@ public class CreateUI {
 			}
 		} catch (SQLException e) {
 			System.err.println("Error inserting review: " + e.getMessage());
+		}
 		}
 	}
 
